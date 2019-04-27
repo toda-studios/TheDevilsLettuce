@@ -9,25 +9,39 @@ public class Player_manager : MonoBehaviour
         RIGHT, LEFT, UP, DOWN
     }
 
+
     public float playerSpeed = 1f;
     SelectorObject selector;
+    Animator animator;
+    SpriteRenderer renderer;
 
     private void Start()
     {
         selector = new SelectorObject(this.gameObject, 0.2f, 0.35f);
+        animator = GetComponent<Animator>();
+        renderer = GetComponent<SpriteRenderer>();
+        
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        ManageAnimation();
+
+        if (!Dialog.isVisible)
         {
-            selector.Interact();
+            if (Input.GetButtonDown("Submit"))
+            {
+                selector.Interact();
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        Movement();
+        if (!Dialog.isVisible)
+        {
+            Movement();
+        }
     }
 
     void OnDrawGizmos()
@@ -96,16 +110,16 @@ public class Player_manager : MonoBehaviour
         {
             switch (direction)
             {
-                case Direction.RIGHT:
+                case Direction.UP:
                     selector.transform.localPosition = new Vector2(0, yOffset);
                     break;
-                case Direction.UP:
+                case Direction.RIGHT:
                     selector.transform.localPosition = new Vector2(xOffset, 0);
                     break;
-                case Direction.DOWN:
+                case Direction.LEFT:
                     selector.transform.localPosition = new Vector2(-xOffset, 0);
                     break;
-                case Direction.LEFT:
+                case Direction.DOWN:
                     selector.transform.localPosition = new Vector2(0, -yOffset);
                     break;
             }
@@ -140,29 +154,58 @@ public class Player_manager : MonoBehaviour
 
     }
 
+    private void ManageAnimation()
+    {
+        string playAnimation = "Walk";
+        if(GetComponent<Rigidbody2D>().velocity == new Vector2(0,0))
+        {
+            playAnimation = "Idle";
+        }
+
+        switch (selector.direction)
+        {
+            case Direction.RIGHT:
+                animator.Play("DevilSide" + playAnimation);
+                renderer.flipX = false;
+                break;
+            case Direction.UP:
+                animator.Play("DevilForward" + playAnimation);
+                renderer.flipX = false;
+                break;
+            case Direction.DOWN:
+                animator.Play("DevilForward" + playAnimation);
+                renderer.flipX = false;
+                break;
+            case Direction.LEFT:
+                animator.Play("DevilSide" + playAnimation);
+                renderer.flipX = true;
+                break;
+        }
+    }
+
 
     private void Movement()
     {
         Vector3 movement = Vector3.zero;
         if (Input.GetAxis("Vertical") > 0)
         {
-            selector.direction = Direction.RIGHT;
+            selector.direction = Direction.UP;
             movement += new Vector3(0, playerSpeed, 0);
         }
         if (Input.GetAxis("Vertical") < 0)
         {
-            selector.direction = Direction.LEFT;
+            selector.direction = Direction.DOWN;
             movement -= new Vector3(0, playerSpeed, 0);
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            selector.direction = Direction.UP;
+            selector.direction = Direction.RIGHT;
             movement += new Vector3(playerSpeed, 0, 0);
         }
         if (Input.GetAxis("Horizontal") < 0)
         {
-            selector.direction = Direction.DOWN;
+            selector.direction = Direction.LEFT;
             movement -= new Vector3(playerSpeed, 0, 0);
         }
         GetComponent<Rigidbody2D>().velocity = movement;
