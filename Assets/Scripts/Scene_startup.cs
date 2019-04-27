@@ -10,6 +10,8 @@ public class Scene_startup : MonoBehaviour
     {
         SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
 
+        SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+
         //Runs global user reporting if development build
         if (Debug.isDebugBuild)
         {
