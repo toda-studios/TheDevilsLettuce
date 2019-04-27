@@ -12,6 +12,8 @@ public class Scene_startup : MonoBehaviour
         if (Debug.isDebugBuild)
         {
             SceneManager.LoadScene("UserReporting", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Gameplay", LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync("Startup");
         }
     }
 
