@@ -130,6 +130,7 @@ public class Inventory
     Transform guiParent;
 
 
+
     public Inventory(int slots, Transform gridMaster)
     {
         items = new Item[slots];
