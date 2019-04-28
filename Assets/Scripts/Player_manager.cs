@@ -15,11 +15,25 @@ public class Player_manager : MonoBehaviour
     Animator animator;
     SpriteRenderer renderer;
 
+    public Inventory inventory;
+
     private void Start()
     {
         selector = new SelectorObject(this.gameObject, 0.2f, 0.35f);
         animator = GetComponent<Animator>();
         renderer = GetComponent<SpriteRenderer>();
+
+        if (Application.isEditor)
+        {
+            InventorySystem.LoadInventory();
+        }
+
+        inventory = new Inventory(56, GameObject.FindGameObjectWithTag("InventoryBox").transform.Find("Slots"));
+
+        inventory.AddItemById("baby");
+
+        inventory.UpdateGUI();
+
         
     }
 

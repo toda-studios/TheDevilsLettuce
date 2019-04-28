@@ -8,6 +8,8 @@ public class Scene_startup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InventorySystem.LoadInventory();
+
         SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
 
         SceneManager.LoadScene("UI", LoadSceneMode.Additive);
