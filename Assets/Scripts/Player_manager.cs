@@ -16,6 +16,8 @@ public class Player_manager : MonoBehaviour
     SpriteRenderer renderer;
 
     public Inventory inventory;
+    private GameObject inventoryGobj;
+
 
     private void Start()
     {
@@ -34,7 +36,12 @@ public class Player_manager : MonoBehaviour
 
         inventory.UpdateGUI();
 
-        
+        inventoryGobj = GameObject.FindGameObjectWithTag("InventoryBox");
+        inventoryGobj.SetActive(false);
+
+
+
+
     }
 
     private void Update()
@@ -47,7 +54,13 @@ public class Player_manager : MonoBehaviour
             {
                 selector.Interact();
             }
+            if(Input.GetButtonDown("Inventory"))
+            {
+                inventoryGobj.SetActive(!inventoryGobj.activeInHierarchy);
+            }
         }
+
+
     }
 
     private void FixedUpdate()
