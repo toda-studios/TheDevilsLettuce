@@ -58,6 +58,11 @@ public class Player_manager : MonoBehaviour
             {
                 inventoryGobj.SetActive(!inventoryGobj.activeInHierarchy);
             }
+
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                //GameObject
+            }
         }
 
 

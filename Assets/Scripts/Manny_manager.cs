@@ -7,6 +7,7 @@ public class Manny_manager : Interactable
     int stage = 0;
     int lastDayGaveBabies = -1;
     bool previouslyTakedTo = false;
+    int rep = 0;
 
     const string NAME = "Manny";
 
@@ -34,6 +35,12 @@ public class Manny_manager : Interactable
         }
     }
 
+    public void GainRep(int newRep)
+    {
+        rep += newRep;
+    }
+
+
 
     public void Update()
     {
@@ -44,7 +51,7 @@ public class Manny_manager : Interactable
                 if (lastDayGaveBabies != GameObject.FindObjectOfType<Time_manager>().GetDay())
                 {
                     Dialog.DisplayDialog(NAME, babyLines[Random.Range(0, babyLines.Length)]);
-                    AddBabies(Random.Range(2, 5));
+                    AddBabies((Random.Range(2, 5) * rep) + 1);
                     lastDayGaveBabies = GameObject.FindObjectOfType<Time_manager>().GetDay();
 
 
