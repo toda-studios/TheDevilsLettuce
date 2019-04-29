@@ -1,18 +1,14 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class baby_plant : MonoBehaviour
+public class baby_plant : plant_manager
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject slave;
 
-    // Update is called once per frame
-    void Update()
+    public override void OnHarvest()
     {
-        
+        GameObject newbie = Instantiate(slave) as GameObject;
+        newbie.transform.position = transform.position;
     }
 }
