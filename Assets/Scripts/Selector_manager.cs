@@ -31,4 +31,28 @@ public class Selector_manager : MonoBehaviour
         return null;
     }
 
+    public bool isPlantable()
+    {
+        foreach(Collider2D col in collisions)
+        {
+            if(col.name == "Plots")
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Interactable getPlant()
+    {
+        foreach (Collider2D col in collisions)
+        {
+            if (col.GetComponent<plant_manager>() != null)
+            {
+                return col.GetComponent<Interactable>();
+            }
+        }
+        return null;
+    }
+
 }

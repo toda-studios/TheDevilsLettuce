@@ -52,7 +52,7 @@ public class Player_manager : MonoBehaviour
         {
             if (Input.GetButtonDown("Submit"))
             {
-                selector.Interact();
+                selector.Interact(inventory);
             }
             if(Input.GetButtonDown("Inventory"))
             {
@@ -125,16 +125,33 @@ public class Player_manager : MonoBehaviour
             Gizmos.DrawWireSphere(selector.transform.position, Radius);
         }
 
-        public void Interact()
+        public void Interact(Inventory invent = null)
         {
-            Interactable interactable = selector.GetComponent<Selector_manager>().GetInterable();
+            Selector_manager selectorTool = selector.GetComponent<Selector_manager>();
 
-            //Exit if no interable is found
-            if (interactable == null)
-                return;
+            if (!selectorTool.isPlantable())
+            {
+                Interactable interactable = selectorTool.GetInterable();
+                //Exit if no interable is found
+                if (interactable == null)
+                    return;
 
-            //Interact with interactable
-            interactable.OnInteract();
+                //Interact with interactable
+                interactable.OnInteract();
+            }
+            else
+            {
+                if(selectorTool.getPlant() != null)
+                {
+                    selectorTool.getPlant().OnInteract();
+                }
+                else if(invent.HasItem("baby"))
+                {
+                    invent.RemoveItem("baby");
+                    GameObject goj = Instantiate(Resources.Load<GameObject>("Plants/BabyPlant"));
+                    goj.transform.position = selector.transform.position;
+                }
+            }
         }
 
         //Move selector location
