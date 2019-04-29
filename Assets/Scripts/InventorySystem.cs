@@ -158,6 +158,36 @@ public class Inventory
         return false;
     }
 
+    public bool HasItem(string id)
+    {
+        Item itemToHave = InventorySystem.GetItemByID(id);
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] == itemToHave)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool RemoveItem(string id)
+    {
+        Item itemToRemove = InventorySystem.GetItemByID(id);
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] == itemToRemove)
+            {
+                items[i] = InventorySystem.GetItemByID("none");
+                UpdateGUI();
+                return true;
+            }
+        }
+        Debug.LogError("Tried to remove item player does not have!");
+        return false;
+    }
+
+
     public void UpdateGUI()
     {
         if (guiParent != null)

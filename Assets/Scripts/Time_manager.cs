@@ -14,7 +14,7 @@ public class Time_manager : MonoBehaviour
     }
     const int NUMBER_OF_SEASONS = 4;
 
-    const int minutesPerDay = 5;
+    const int minutesPerDay = 3;
     const int daysPerSeason = 2;
 
     int day = 0;
@@ -27,6 +27,10 @@ public class Time_manager : MonoBehaviour
     public Season GetSeason()
     {
         return currentSeason;
+    }
+    public float GetTime()
+    {
+        return (currentLengthOfDay() * 24)/ minutesPerDay;
     }
 
     // Start is called before the first frame update
