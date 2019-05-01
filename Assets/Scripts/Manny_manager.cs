@@ -19,7 +19,7 @@ public class Manny_manager : Interactable
         }
         else
         {
-            Dialog.DisplayDialog("??????", "Hi there!");
+            Dialog.DisplayDialog("The Devil", "Hey Manny, how do babies get to hell?");
         }
         stage = 1;
     }
@@ -67,8 +67,9 @@ public class Manny_manager : Interactable
         {
             if(stage == 1 & !Dialog.isVisible)
             {
-                Dialog.DisplayDialog(NAME, "I am Manny, I am the reaper on this layer of hell.");
-                stage = 2;
+                Dialog.DisplayDialog(NAME, "Well, let me tell you...");
+                stage = 0;
+                previouslyTakedTo = true;
             }
 
             if (stage == 2 & !Dialog.isVisible)
@@ -81,8 +82,7 @@ public class Manny_manager : Interactable
             {
                 Dialog.DisplayDialog(NAME, "Oh wait! You're the Devil himself! I have some souls for you!");
                 AddBabies(2);
-                stage = 0;
-                previouslyTakedTo = true;
+
             }
         }
     }
